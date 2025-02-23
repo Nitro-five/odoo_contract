@@ -1,0 +1,399 @@
+<odoo>
+    <!--__________________________________________ СПИСКИ _______________________________________________________-->
+
+    <record id="view_legal_dispute_tree" model="ir.ui.view">
+        <field name="name">legal.dispute.tree</field>
+        <field name="model">ra_legal_department.legal_dispute</field>
+        <field name="arch" type="xml">
+            <tree string="Юридичні спори">
+                <field name="responsible_id" string="Відповідальний"/>
+                <field name="claimant_id" string="Позивач"/>
+                <field name="defendant_id" string="Відповідач"/>
+                <field name="start_date" string="Дата початку"/>
+                <field name="current_status" string="Поточний стан"/>
+                <field name="end_date" string="Дата завершення"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--__________________________________________ ФОРМИ ________________________________________________________-->
+
+    <record id="view_legal_dispute_form" model="ir.ui.view">
+        <field name="name">legal.dispute.form</field>
+        <field name="model">ra_legal_department.legal_dispute</field>
+        <field name="arch" type="xml">
+            <form string="Юридичний спір">
+                <header>
+                    <button name="end_disput" type="object" string="Завершити спір" class="oe_highlight"/>
+                    <button name="zvernuty_za_konsultaciieyu" type="object" string="Звернутися за консультацією"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group col="2">
+                            <field name="claimant_id" string="Позивач"/>
+                            <field name="defendant_id" string="Відповідач"/>
+                            <field name="start_date" string="Дата початку"/>
+                            <field name="statute_of_limitations" string="Строки давності"/>
+                        </group>
+                        <group col="2">
+                            <field name="responsible_id" string="Відповідальний"/>
+                            <field name="current_status" string="Поточний стан"/>
+                            <field name="end_date" string="Дата завершення"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- Вкладка Юридичний спір -->
+                        <page name="legal" string="Юридичний спір" autofocus="autofocus">
+                            <group>
+                                <field name="document_ids" widget="many2many_tags" string="Документи"/>
+                            </group>
+                        </page>
+
+                        <!-- Вкладка Досудове врегулювання -->
+                        <page string="Досудове врегулювання">
+                            <group>
+                                <!-- Дополнительные поля для досудового врегулювання -->
+                            </group>
+                        </page>
+                        <!-- Вкладка Перша інстанція -->
+                        <page name="first_instation" string="Перша інстанція">
+                            <!-- Основная группа для визуального разделения полей -->
+                            <group string="Основна інформація по справі" class="o_group_top">
+                                <group>
+                                    <field name="court_name" string="Назва суду"
+                                           placeholder="Наприклад, Київський районний суд"/>
+                                    <field name="unique_case_number" string="Єдиний унікальний номер справи"/>
+                                    <field name="judge_name" string="Склад суду" widget="many2many_tags"
+                                           placeholder="Оберіть суддів"/>
+                                </group>
+                                <group>
+                                    <field name="proceeding_number" string="Номер провадження"
+                                           placeholder="Введіть номер провадження"/>
+                                    <field name="case_received_date" string="Дата надходження справи"/>
+                                </group>
+                            </group>
+
+                            <!-- Группа со сведениями о судье и стороне -->
+                            <group string="Деталі справи" class="o_group_bottom">
+                                <group>
+                                    <field name="claim_type" string="Предмет позову"
+                                           placeholder="Наприклад, позов на відшкодування шкоди"/>
+                                    <field name="hearing_stage" string="Стадія розгляду"
+                                           placeholder="Оберіть стадію (розгляд, виконання тощо)"/>
+
+                                </group>
+                            </group>
+
+
+                            <!-- Табличное представление документов с возможностью добавления и удаления -->
+                            <field name="document_ids" widget="many2many" string="Документи"
+                                   placeholder="Завантажте документи">
+                                <tree string="Список документів">
+                                    <field name="name" string="Назва документу"/>
+                                    <field name="create_date" string="Дата завантаження"/>
+                                    <field name="create_uid" string="Завантажив"/>
+                                </tree>
+                            </field>
+                        </page>
+
+
+                        <!-- Вкладка Апеляційна інстанція -->
+                        <page string="Апеляційна інстанція">
+                            <group>
+                                <!-- Поля для апелляционной инстанции -->
+                            </group>
+                        </page>
+
+                        <!-- Вкладка Касаційна інстанція -->
+                        <page string="Касаційна інстанція">
+                            <group>
+                                <!-- Поля для кассационной инстанции -->
+                            </group>
+                        </page>
+
+                        <!-- Вкладка Виконавче провадження -->
+                        <page string="Виконавче провадження">
+                            <group>
+                                <!-- Поля для исполнительного производства -->
+                            </group>
+                        </page>
+
+                        <!-- Вкладка Дії (кнопки) -->
+                        <page string="Дії">
+                            <group>
+                                <button name="napysaty_lysta" type="object" string="Написати листа"/>
+                                <button name="vidpravyty_pretenziyu" type="object" string="Відправити претензію"/>
+                                <button name="podaty_pozovnu_zayavu" type="object" string="Подати позовну заяву"/>
+                                <button name="podaty_klopotannya" type="object" string="Подати клопотання"/>
+                                <button name="podaty_vidziv_na_pozovnu_zayavu" type="object"
+                                        string="Подати відзив на позовну заяву"/>
+                                <button name="podaty_zaperechennya_na_vidziv" type="object"
+                                        string="Подати заперечення на відзив"/>
+                                <button name="podaty_mirovu_ugodu" type="object" string="Подати мирову угоду"/>
+                                <button name="podaty_apelyaciynu_skargu" type="object"
+                                        string="Подати апеляційну скаргу"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_legal_dispute_form_first_instation" model="ir.ui.view">
+        <field name="name">legal.dispute.form</field>
+        <field name="model">ra_legal_department.legal_dispute</field>
+        <field name="inherit_id" ref="ra_legal_department.view_legal_dispute_form"/>
+        <field name="priority">999</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='legal']" position="attributes">
+                <attribute name="autofocus">0</attribute>
+            </xpath>
+            <xpath expr="//page[@name='first_instation']" position="attributes">
+                <attribute name="autofocus">autofocus</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--__________________________________________ ПОИСК ________________________________________________________-->
+    <!-- Стандартный Поиск  -->
+    <record id="view_legal_dispute_search" model="ir.ui.view">
+        <field name="name">legal.dispute.search</field>
+        <field name="model">ra_legal_department.legal_dispute</field>
+        <field name="priority">1</field>
+
+        <field name="arch" type="xml">
+            <search string="Пошук юридичного спору">
+                <field name="claimant_id" string="Позивач"/>
+                <field name="defendant_id" string="Відповідач"/>
+                <field name="current_status" string="Поточний стан"/>
+                <field name="start_date" string="Дата початку"/>
+                <field name="end_date" string="Дата завершення"/>
+
+                <!-- Фильтры -->
+                <filter string="Досудове" name="filter_dosudove" domain="[('current_status', '=', 'dosudove')]"/>
+                <filter string="Перша інстанція" name="filter_persha_instancia"
+                        domain="[('current_status', '=', 'persha_instancia')]"/>
+                <filter string="Апеляція" name="filter_apelyaciya" domain="[('current_status', '=', 'apelyaciya')]"/>
+                <filter string="Касація" name="filter_kasaciya" domain="[('current_status', '=', 'kasaciya')]"/>
+                <filter string="Виконавче провадження" name="filter_vykonavche"
+                        domain="[('current_status', '=', 'vykonavche')]"/>
+                <group expand="0" string="Группировать по">
+                    <filter string="Відповідальний" name="group_responsible" context="{'group_by': 'responsible_id'}"/>
+                    <filter string="Статус" name="group_status" context="{'group_by': 'current_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Поиск с Search Panel  -->
+    <record id="view_legal_dispute_search_with_panel" model="ir.ui.view">
+        <field name="name">legal.dispute.search</field>
+        <field name="model">ra_legal_department.legal_dispute</field>
+        <field name="priority">2</field>
+
+        <field name="arch" type="xml">
+            <search string="Пошук юридичного спору">
+                <field name="claimant_id" string="Позивач"/>
+                <field name="defendant_id" string="Відповідач"/>
+                <field name="current_status" string="Поточний стан"/>
+                <field name="start_date" string="Дата початку"/>
+                <field name="end_date" string="Дата завершення"/>
+
+                <!-- Фильтры -->
+                <filter string="Досудове" name="filter_dosudove" domain="[('current_status', '=', 'dosudove')]"/>
+                <filter string="Перша інстанція" name="filter_persha_instancia"
+                        domain="[('current_status', '=', 'persha_instancia')]"/>
+                <filter string="Апеляція" name="filter_apelyaciya" domain="[('current_status', '=', 'apelyaciya')]"/>
+                <filter string="Касація" name="filter_kasaciya" domain="[('current_status', '=', 'kasaciya')]"/>
+                <filter string="Виконавче провадження" name="filter_vykonavche"
+                        domain="[('current_status', '=', 'vykonavche')]"/>
+
+                <!-- Группировка -->
+                <group expand="0" string="Группировать по">
+                    <filter string="Відповідальний" name="group_responsible" context="{'group_by': 'responsible_id'}"/>
+                    <filter string="Статус" name="group_status" context="{'group_by': 'current_status'}"/>
+                </group>
+
+                <searchpanel>
+                    <field name="current_status" icon="fa-filter" enable_counters="1" select="multi"
+                           string="Вид документу"/>
+                    <field name="dispute_type" icon="fa-filter" enable_counters="1" select="multi"
+                           string="Тип документу"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!--__________________________________________ Actions ______________________________________________________-->
+    <record id="all_legal_dispute" model="ir.actions.act_window">
+        <field name="name">Всі Юридичні Спори</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="ra_legal_department.view_legal_dispute_search_with_panel"/>
+    </record>
+
+
+    <record id="action_pretrial_disputes" model="ir.actions.act_window">
+        <field name="name">Досудові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_pretrial_general" model="ir.actions.act_window">
+        <field name="name">Досудові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_claims" model="ir.actions.act_window">
+        <field name="name">Претензії</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_trial_disputes" model="ir.actions.act_window">
+        <field name="name">Судові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_first_instance" model="ir.actions.act_window">
+        <field name="name">Перша інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'tree'}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('ra_legal_department.view_legal_dispute_form_first_instation')})]"/>
+    </record>
+    <record id="action_appeal_instance" model="ir.actions.act_window">
+        <field name="name">Апеляційна інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_cassation_instance" model="ir.actions.act_window">
+        <field name="name">Касаційна інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_other_disputes" model="ir.actions.act_window">
+        <field name="name">Інше</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_peace_agreements" model="ir.actions.act_window">
+        <field name="name">Мирові угоди</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_enforcement_proceedings" model="ir.actions.act_window">
+        <field name="name">Виконавчі провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_property_assessment" model="ir.actions.act_window">
+        <field name="name">Оцінка майна</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="action_admin_pretrial" model="ir.actions.act_window">
+        <field name="name">Досудові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_trial" model="ir.actions.act_window">
+        <field name="name">Судові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_first_instance" model="ir.actions.act_window">
+        <field name="name">Перша інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_appeal_instance" model="ir.actions.act_window">
+        <field name="name">Апеляційна інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_cassation_instance" model="ir.actions.act_window">
+        <field name="name">Касаційна інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_other" model="ir.actions.act_window">
+        <field name="name">Інше</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_peace_agreements" model="ir.actions.act_window">
+        <field name="name">Мирові угоди</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_enforcement_proceedings" model="ir.actions.act_window">
+        <field name="name">Виконавчі провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_admin_property_assessment" model="ir.actions.act_window">
+        <field name="name">Оцінка майна</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="action_commercial_pretrial" model="ir.actions.act_window">
+        <field name="name">Досудові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_trial" model="ir.actions.act_window">
+        <field name="name">Судові провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_first_instance" model="ir.actions.act_window">
+        <field name="name">Перша інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_appeal_instance" model="ir.actions.act_window">
+        <field name="name">Апеляційна інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_cassation_instance" model="ir.actions.act_window">
+        <field name="name">Касаційна інстанція</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_other" model="ir.actions.act_window">
+        <field name="name">Інше</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_peace_agreements" model="ir.actions.act_window">
+        <field name="name">Мирові угоди</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_enforcement_proceedings" model="ir.actions.act_window">
+        <field name="name">Виконавчі провадження</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_commercial_property_assessment" model="ir.actions.act_window">
+        <field name="name">Оцінка майна</field>
+        <field name="res_model">ra_legal_department.legal_dispute</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

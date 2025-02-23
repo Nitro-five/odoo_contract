@@ -1,0 +1,137 @@
+<odoo>
+
+    <!--__________________________________________ ДОГОВІРНА РОБОТА ______________________________________________  -->
+
+    <menuitem id="menu_legal_document_root" name="Договірна робота" sequence="1"
+              action="ra_legal_department.action_all_documents">
+
+
+
+        <!-- Договори -->
+        <menuitem name="Договори" id="contracts" sequence="50">
+            <menuitem name="Договори оренди земельної ділянки" id="land_rental_contracts"
+                      action="ra_legal_department.action_land_rental_contracts" sequence="10"/>
+            <menuitem name="Договори оренди нерухомого майна" id="property_rental_contracts"
+                      action="ra_legal_department.action_property_rental_contracts" sequence="20"/>
+            <menuitem name="Договори купівлі-продажу" id="sales_contracts"
+                      action="ra_legal_department.action_sales_contracts" sequence="30"/>
+            <menuitem name="Договори поставки" id="supply_contracts"
+                      action="ra_legal_department.action_supply_contracts"
+                      sequence="40"/>
+            <menuitem name="Договори надання послуг" id="service_contracts"
+                      action="ra_legal_department.action_service_contracts"
+                      sequence="50"/>
+            <menuitem name="Договори надання фінансової допомоги" id="financial_aid_contracts"
+                      action="ra_legal_department.action_financial_aid_contracts" sequence="60"/>
+            <menuitem name="Трудові договори" id="employment_contracts"
+                      action="ra_legal_department.action_employment_contracts" sequence="70"/>
+            <menuitem name="Договори позики" id="loan_contracts" action="ra_legal_department.action_loan_contracts"
+                      sequence="80"/>
+            <menuitem name="Інші Договори" id="other_contracts" action="ra_legal_department.action_other_contracts"
+                      sequence="90"/>
+            <menuitem name="Всі договори" id="all_contracts" action="ra_legal_department.action_all_contracts"
+                      sequence="100"/>
+        </menuitem>
+    </menuitem>
+
+    <!--__________________________________________ Юридичні спори ______________________________________________  -->
+    <menuitem id="menu_legal_disputes_root" sequence="2" name="Юридичні спори"
+              web_icon="ra_legal_department,static/description/menu_legal_disputes.png" action="all_legal_dispute">
+        <!--___________________________ Цивільні спори -->
+        <menuitem id="menu_disputes_civil" sequence="14" name="Цивільні спори">
+            <!-- Досудові провадження -->
+            <menuitem id="menu_pretrial_disputes" sequence="2" name="Досудові провадження">
+                <menuitem id="menu_pretrial_general" sequence="3" name="Досудові провадження"
+                          action="ra_legal_department.action_pretrial_general"/>
+                <menuitem id="menu_claims_1" sequence="4" name="Претензії" action="action_claims"/>
+            </menuitem>
+            <!-- Судові провадження -->
+            <menuitem id="menu_trial_disputes" sequence="5" name="Судові провадження">
+                <menuitem id="menu_first_instance" sequence="6" name="Перша інстанція"
+                          action="ra_legal_department.action_first_instance"/>
+                <menuitem id="menu_appeal_instance" sequence="7" name="Апеляційна інстанція"
+                          action="ra_legal_department.action_appeal_instance"/>
+                <menuitem id="menu_cassation_instance" sequence="8" name="Касаційна інстанція"
+                          action="ra_legal_department.action_cassation_instance"/>
+            </menuitem>
+            <!-- Інше -->
+            <menuitem id="menu_other_disputes" sequence="9" name="Інше">
+                <menuitem id="menu_peace_agreements" sequence="10" name="Мирові угоди"
+                          action="ra_legal_department.action_peace_agreements"/>
+                <menuitem id="menu_enforcement_proceedings" sequence="11" name="Виконавчі провадження"
+                          action="ra_legal_department.action_enforcement_proceedings"/>
+                <menuitem id="menu_property_assessment" sequence="12" name="Оцінка майна"
+                          action="ra_legal_department.action_property_assessment"/>
+            </menuitem>
+        </menuitem>
+
+        <!--___________________________ Адміністративні спори -->
+        <menuitem id="menu_disputes_administrative" sequence="15" name="Адміністративні спори">
+            <!-- Досудові провадження -->
+            <menuitem id="menu_commercial_pretrial_disputes_3" sequence="2" name="Досудові провадження">
+                <menuitem id="menu_admin_pretrial" sequence="16" name="Досудові провадження"
+                          action="ra_legal_department.action_pretrial_general"/>
+            </menuitem>
+            <!-- Судові провадження -->
+            <menuitem id="menu_admin_trial" sequence="17" name="Судові провадження">
+                <menuitem id="menu_admin_first_instance" sequence="18" name="Перша інстанція"
+                          action="ra_legal_department.action_first_instance"/>
+                <menuitem id="menu_admin_appeal_instance" sequence="19" name="Апеляційна інстанція"
+                          action="ra_legal_department.action_appeal_instance"/>
+                <menuitem id="menu_admin_cassation_instance" sequence="20" name="Касаційна інстанція"
+                          action="ra_legal_department.action_cassation_instance"/>
+            </menuitem>
+            <!-- Інше -->
+            <menuitem id="menu_admin_other" sequence="21" name="Інше">
+                <menuitem id="menu_admin_peace_agreements" sequence="22" name="Мирові угоди"
+                          action="ra_legal_department.action_peace_agreements"/>
+                <menuitem id="menu_admin_enforcement_proceedings" sequence="23" name="Виконавчі провадження"
+                          action="ra_legal_department.action_enforcement_proceedings"/>
+                <menuitem id="menu_admin_property_assessment" sequence="24" name="Оцінка майна"
+                          action="ra_legal_department.action_property_assessment"/>
+            </menuitem>
+        </menuitem>
+
+        <!--___________________________ Господарські спори -->
+        <menuitem id="menu_disputes_commercial" sequence="26" name="Господарські спори">
+            <!-- Досудові провадження -->
+            <menuitem id="menu_commercial_pretrial_disputes_2" sequence="2" name="Досудові провадження">
+                <menuitem id="menu_commercial_pretrial" sequence="27" name="Досудові провадження"
+                          action="ra_legal_department.action_pretrial_general"/>
+                <menuitem id="menu_claims" sequence="28" name="Претензії" action="action_claims"/>
+            </menuitem>
+            <!-- Судові провадження -->
+            <menuitem id="menu_commercial_trial" sequence="29" name="Судові провадження">
+                <menuitem id="menu_commercial_first_instance" sequence="30" name="Перша інстанція"
+                          action="ra_legal_department.action_first_instance"/>
+                <menuitem id="menu_commercial_appeal_instance" sequence="31" name="Апеляційна інстанція"
+                          action="ra_legal_department.action_appeal_instance"/>
+                <menuitem id="menu_commercial_cassation_instance" sequence="32" name="Касаційна інстанція"
+                          action="ra_legal_department.action_cassation_instance"/>
+            </menuitem>
+            <!-- Інше -->
+            <menuitem id="menu_commercial_other" sequence="33" name="Інше">
+                <menuitem id="menu_commercial_peace_agreements" sequence="34" name="Мирові угоди"
+                          action="ra_legal_department.action_peace_agreements"/>
+                <menuitem id="menu_commercial_enforcement_proceedings" sequence="35" name="Виконавчі провадження"
+                          action="ra_legal_department.action_enforcement_proceedings"/>
+                <menuitem id="menu_commercial_property_assessment" sequence="36" name="Оцінка майна"
+                          action="ra_legal_department.action_property_assessment"/>
+            </menuitem>
+        </menuitem>
+    </menuitem>
+
+
+    <!--__________________________________________ Консультації ______________________________________________  -->
+    <menuitem id="legal_consultation" name="Консультації" action="ra_legal_department.action_legal_consultation"
+              web_icon="ra_legal_department,static/description/legal_consultation.png" sequence="4"/>
+
+    <!--__________________________________________ Перевірки ______________________________________________  -->
+    <menuitem id="menu_perevirky" name="Перевірки" sequence="6" action="ra_legal_department.action_perevirky_user"
+              web_icon="theme,static/src/images/audit.png">
+        <menuitem id="menu_perevirky_user" name="Мої перевірки" sequence="2"
+                  action="ra_legal_department.action_perevirky_user"/>
+        <menuitem id="menu_perevirky_planned" name="Заплановані перевірки" sequence="3"
+                  action="ra_legal_department.action_perevirky_planned"/>
+    </menuitem>
+</odoo>

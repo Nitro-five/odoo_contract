@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--__________________________________________ ACTIONS _______________________________________________________-->
+        <!--___________________ Види Документів______________-->
+
+         <!-- ВСІ ДОКУМЕНТИ-->
+        <record id="action_all_documents" model="ir.actions.act_window">
+            <field name="name">Всі Документи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_by_type_of_document': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Перегляньте всі юридичні документи
+                </p>
+            </field>
+        </record>
+
+
+
+        <!-- ИСХОДЯЩИЕ-->
+        <record id="action_applications" model="ir.actions.act_window">
+            <field name="name">Вихідні заяви</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'application'), ('type_of_document', '=',
+                'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'application', 'default_type_of_document':
+                'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_complaints" model="ir.actions.act_window">
+            <field name="name">Вихідні скарги</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'complaint'), ('type_of_document', '=',
+                'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'complaint',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_letters" model="ir.actions.act_window">
+            <field name="name">Вихідні листи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'letter'), ('type_of_document', '=', 'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'letter',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_claims" model="ir.actions.act_window">
+            <field name="name">Вихідні претензії</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'claim'), ('type_of_document', '=', 'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'claim',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_requests" model="ir.actions.act_window">
+            <field name="name">Вихідні запити</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'request'), ('type_of_document', '=',
+                'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'request',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_powers_of_attorney" model="ir.actions.act_window">
+            <field name="name">Вихідні довіреності</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'power_of_attorney'), ('type_of_document', '=',
+                'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'power_of_attorney',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_certificates" model="ir.actions.act_window">
+            <field name="name">Вихідні довідки</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'certificate'), ('type_of_document', '=',
+                'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'certificate',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_other_document" model="ir.actions.act_window">
+            <field name="name">Вихідні інші документи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'other'), ('type_of_document', '=', 'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'other',
+                'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+        <record id="action_all_outgoing_document" model="ir.actions.act_window">
+            <field name="name">Всі вихідні документи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_document', '=', 'outgoing')]
+            </field>
+            <field name="context">{'default_type_of_document':'outgoing'}
+            </field>
+        </record>
+
+
+        <!-- ВХОДЯЩИЕ-->
+        <record id="incoming_action_applications" model="ir.actions.act_window">
+            <field name="name">Вхідні заяви</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'application'), ('type_of_document', '=',
+                'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'application', 'default_type_of_document':
+                'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_complaints" model="ir.actions.act_window">
+            <field name="name">Вхідні скарги</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'complaint'), ('type_of_document', '=',
+                'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'complaint',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_letters" model="ir.actions.act_window">
+            <field name="name">Вхідні листи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'letter'), ('type_of_document', '=', 'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'letter',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_claims" model="ir.actions.act_window">
+            <field name="name">Вхідні претензії</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'claim'), ('type_of_document', '=', 'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'claim',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_requests" model="ir.actions.act_window">
+            <field name="name">Вхідні запити</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'request'), ('type_of_document', '=',
+                'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'request',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_powers_of_attorney" model="ir.actions.act_window">
+            <field name="name">Вхідні довіреності</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'power_of_attorney'), ('type_of_document', '=',
+                'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'power_of_attorney',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_certificates" model="ir.actions.act_window">
+            <field name="name">Вхідні довідки</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'certificate'), ('type_of_document', '=',
+                'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'certificate',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_other_document" model="ir.actions.act_window">
+            <field name="name">Вхідні інші документи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_legal_document', '=', 'other'), ('type_of_document', '=', 'incoming')]
+            </field>
+            <field name="context">{'default_type_of_legal_document': 'other',
+                'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <record id="incoming_action_all_outgoing_document" model="ir.actions.act_window">
+            <field name="name">Всі вхідні документи</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_document', '=', 'incoming')]
+            </field>
+            <field name="context">{'default_type_of_document':'incoming'}
+            </field>
+        </record>
+
+        <!-- Внутрішні документи -->
+        <record id="action_protocols_decisions" model="ir.actions.act_window">
+            <field name="name">Протоколи/Рішення</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_document','=','internal'), ('type_of_internal_document','=','protocol')]
+            </field>
+            <field name="context">{'default_type_of_document': 'internal', 'type_of_internal_document': 'protocol'}
+            </field>
+
+
+        </record>
+
+        <record id="action_orders" model="ir.actions.act_window">
+            <field name="name">Накази</field>
+            <field name="res_model">ra_legal_department.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type_of_document','=','internal'), ('type_of_internal_document','=','order')]
+            </field>
+            <field name="context">{'default_type_of_document': 'internal', 'type_of_internal_document': 'order'}</field>
+        </record>
+
+    </data>
+</odoo>

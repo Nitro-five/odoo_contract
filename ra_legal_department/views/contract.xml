@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <!--__________________________________________ СПИСКИ _______________________________________________________-->
+
+    <!--__________________________________________ ФОРМИ ________________________________________________________-->
+
+    <!--__________________________________________ ПОИСК ________________________________________________________-->
+
+
+    <!--__________________________________________ Actions ______________________________________________________-->
+
+    <!-- Всі договори -->
+    <record id="action_all_contracts" model="ir.actions.act_window">
+        <field name="name">Всі Договори</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Перегляньте всі юридичні документи
+            </p>
+        </field>
+    </record>
+
+    <record id="action_land_rental_contracts" model="ir.actions.act_window">
+        <field name="name">Договори оренди земельних ділянок</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_property_rental_contracts" model="ir.actions.act_window">
+        <field name="name">Договори оренди основних засобів</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_sales_contracts" model="ir.actions.act_window">
+        <field name="name">Договори купівлі-продажу</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_supply_contracts" model="ir.actions.act_window">
+        <field name="name">Договори поставки</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_service_contracts" model="ir.actions.act_window">
+        <field name="name">Договори надання послуг</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_financial_aid_contracts" model="ir.actions.act_window">
+        <field name="name">Договори надання фінансової допомоги</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_employment_contracts" model="ir.actions.act_window">
+        <field name="name">Трудові договори</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_loan_contracts" model="ir.actions.act_window">
+        <field name="name">Договори позики</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_other_contracts" model="ir.actions.act_window">
+        <field name="name">Інші Договори</field>
+        <field name="res_model">financial.assistance.contracts</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

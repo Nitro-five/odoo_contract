@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <!--__________________________________________ СПИСКИ _______________________________________________________-->
+    <!--    <record id="view_protocol_document_tree" model="ir.ui.view">-->
+    <!--        <field name="name">protocol.document.tree</field>-->
+    <!--        <field name="model">ra_documents.document</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree string="Протоколи/Рішення">-->
+    <!--                <field name="name"/>-->
+    <!--                <field name="protocol_number"/>-->
+    <!--                <field name="company_id"/>-->
+    <!--                <field name="meeting_date"/>-->
+    <!--                <field name="state"/>-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+    <!--__________________________________________ ФОРМИ ________________________________________________________-->
+
+    <record id="internal_document_protocol" model="ir.ui.view">
+        <field name="name">internal.document.protocol.form</field>
+        <field name="model">ra_legal_department.document</field>
+        <field name="priority" eval="2"/>
+
+        <field name="arch" type="xml">
+            <form string="Новий Протокол">
+                <style>
+                    .a4-container {
+                    width: 100%; /* Ширина 100% контейнера */
+                    max-width: 70%; /* Ограничение максимальной ширины для сохранения пропорций A4 */
+                    min-height: 297px; /* Минимальная высота для сохранения пропорций A4 */
+                    background-color: white;
+                    border: 1px solid #000;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                    margin: 0 auto;
+                    position: relative; /* Для позиционирования футера */
+                    }
+
+
+                    .flex-center-column {
+                    display: flex;
+                    flex-direction: column; /* Вертикальное выравнивание элементов */
+                    justify-content: center; /* Центрирование по вертикали */
+                    align-items: center; /* Центрирование текста по горизонтали */
+                    align-self: center; /* Центрирование текста по горизонтали */
+                    width: 100%; /* Элементы занимают всю ширину */
+                    text-align: center; /* Выравнивание текста по центру */
+                    flex-basis:5%;
+                    }
+
+                    .flex-left-row {
+                    display: flex; /* Flexbox для расположения элементов в строку */
+                    align-items:baseline;
+                    float:left;
+                    box-sizing: border-box; /* Учитываем границы и отступы */
+                    width: 100%; /* Растягиваем блок на всю ширину */
+                    margin-left: 5%;
+                    white-space: nowrap;
+                    gap: 2px; /* Отступ между элементами */
+                    padding: 5px;
+
+                    }
+                </style>
+
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+                    <field name="show_document_have_registration" invisible="1"/>
+                    <field name="document_have_registration" readonly="1" widget="boolean_toggle"
+                           attrs="{'invisible': [('show_document_have_registration', '=', False)]}"/>
+
+                    <div name="button_box" class="oe_button_box" style="display: flex; justify-content: flex-end;">
+                        <div>
+                            <button class="oe_stat_button" name="publish_document" type="object"
+                                    attrs="{'invisible': ['|', ('state', 'in', ['registred', 'cancel']), ('document_have_registration', '=', True)]}">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Зареєструвати</strong>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="publish_document" type="object"
+                                    attrs="{'invisible': ['|', ('state', 'in', ['registred', 'cancel']), ('document_have_registration', '=', False)]}">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Підтвердити реєстрацію</strong>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="cancel" type="object"
+                                    attrs="{'invisible': [('state', 'in', ['cancel', 'draft'])]}">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Позначити помилковим</strong>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="mark_as_draft" type="object"
+                                    attrs="{'invisible': [('state', 'in', ['registred', 'draft'])]}">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Позначити чернеткою</strong>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="cancel_document_registration" type="object"
+                                    attrs="{'invisible': [('document_have_registration', '=', False)]}"
+                                    confirm="Документу було присвоєно номер у журналі, скасування реєстрації може призвести до неправильного порядку номерів у журналі. Ви впевнені, що хочете скасувати реєстрацію?">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Скасувати реєстрацію в журналі</strong>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Назва документу"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="type_of_document" attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="type_of_internal_document"
+                                   attrs="{ 'invisible': [('type_of_document', '!=', 'internal')], 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="internal_number_of_document"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="date_of_document" attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </group>
+                        <group>
+                            <field name="responsible_user_id" attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="document_attachment" widget="many2many_binary"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </group>
+                    </group>
+
+                    <div class="a4-container">
+
+                        <!-- Заголовок Протокола -->
+                        <div class="flex-center-column oe_title">
+                            <h1>
+                                <field name="name" placeholder="Протокол №"
+                                       style="font-weight: bold; font-size: 20px;"/>
+                            </h1>
+                            <h2>
+                                Засідання Загальних зборів учасників
+                            </h2>
+                            <p>
+                                <field name="company_id" string="Назва компанії" placeholder="Введіть назву компанії"/>
+                            </p>
+                            <p>
+                                <field name="date_of_document" string="Дата протоколу" widget="date"/>
+                            </p>
+                        </div>
+
+                        <!-- Присутні -->
+                        <div class="flex-left-row oe_title">
+                            <div style="display: flex;flex-direction: column; align-items: flex-start;">
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Тело Протокола -->
+                        <group style="margin: 30px auto; width: 70%;">
+                            <h3 style="text-align: center;">Текст Протоколу:</h3>
+                            <field name="description" widget="html" placeholder="Введіть текст протоколу"/>
+                        </group>
+
+                        <!-- Підписи -->
+                        <div style="display: flex; justify-content: space-between; margin-top: 50px; width: 70%; margin-left: auto; margin-right: auto;">
+                            <div style="text-align: center;">
+                                <field name="legal_protocol_chairman_sign" placeholder="Підпис голови"/>
+                                <p>Підпис Голови зборів</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <field name="legal_protocol_secretary_sign" placeholder="Підпис секретаря"/>
+                                <p>Підпис Секретаря</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--__________________________________________ ПОИСК ________________________________________________________-->
+
+    <!--__________________________________________ Actions ______________________________________________________-->
+
+
+    <record id="action_protocols_decisions" model="ir.actions.act_window">
+        <field name="name">Протоколи/Рішення</field>
+        <field name="res_model">ra_legal_department.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

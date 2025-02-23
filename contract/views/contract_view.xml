@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Действие для открытия договорів -->
+    <record id="action_contract_form" model="ir.actions.act_window">
+        <field name="name">Договори</field>
+        <field name="res_model">contract.contract</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Створіть перший договір, натиснувши кнопку "Створити".
+            </p>
+        </field>
+    </record>
+
+    <!-- Форма договору з розширеним набором полів -->
+    <record id="view_contract_form" model="ir.ui.view">
+        <field name="name">contract.contract.form</field>
+        <field name="model">contract.contract</field>
+        <field name="arch" type="xml">
+            <form string="Договір">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="contract_type"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="amount"/>
+                    </group>
+                    <!-- Додаткові дані договору -->
+                    <group string="Основні дані">
+                        <field name="city"/>
+                        <field name="seller_name"/>
+                        <field name="seller_representative"/>
+                        <field name="buyer_name"/>
+                        <field name="buyer_representative"/>
+                    </group>
+                    <!-- Дані транспортного засобу -->
+                    <group string="Дані транспортного засобу">
+                        <field name="vehicle_brand"/>
+                        <field name="vehicle_model"/>
+                        <field name="vehicle_year"/>
+                        <field name="vehicle_color"/>
+                        <field name="vehicle_vin"/>
+                        <field name="vehicle_reg"/>
+                    </group>
+                    <!-- Фінансові дані -->
+                    <group string="Фінансові дані">
+                        <field name="total_price"/>
+                        <field name="vat"/>
+                    </group>
+                    <!-- Додаткові дані товару -->
+                    <group string="Додаткові дані товару">
+                        <field name="product_quantity"/>
+                        <field name="product_price"/>
+                    </group>
+
+                    <!-- Реквізити продавця -->
+                    <group string="Реквізити продавця">
+                        <field name="seller_address"/>
+                        <field name="seller_account"/>
+                        <field name="seller_bank"/>
+                        <field name="seller_mfo"/>
+                        <field name="seller_edrpou"/>
+                        <field name="seller_phone"/>
+                        <field name="seller_email"/>
+                    </group>
+                    <!-- Реквізити покупця -->
+                    <group string="Реквізити покупця">
+                        <field name="buyer_address"/>
+                        <field name="buyer_account"/>
+                        <field name="buyer_bank"/>
+                        <field name="buyer_mfo"/>
+                        <field name="buyer_edrpou"/>
+                        <field name="buyer_phone"/>
+                    </group>
+                    <group>
+                        <field name="state" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="print_contract" type="object" string="Друк договору (PDF)" class="btn-primary"/>
+                    <button name="action_generate_docx" type="object" string="Завантажити DOCX" class="btn-secondary"/>
+                    <button string="Закрити" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Список договорів -->
+    <record id="view_contract_tree" model="ir.ui.view">
+        <field name="name">contract.contract.tree</field>
+        <field name="model">contract.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Договори">
+                <field name="name"/>
+                <field name="contract_type"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

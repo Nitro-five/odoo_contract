@@ -1,0 +1,162 @@
+<odoo>
+
+
+    <!--__________________________________________ СПИСКИ _______________________________________________________-->
+
+    <!--    &lt;!&ndash; Список (tree) для отображения приказов &ndash;&gt;-->
+    <!--    <record id="view_orders_tree" model="ir.ui.view">-->
+    <!--        <field name="name">legal_orderss_tree</field>-->
+    <!--        <field name="model">ra_legal_department.document</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree string="Накази">-->
+    <!--                <field name="order_number"/>-->
+    <!--                <field name="order_date"/>-->
+    <!--                <field name="company_id"/>-->
+    <!--                <field name="start_date"/>-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <!--__________________________________________ ФОРМИ ________________________________________________________-->
+    <record id="internal_document_order" model="ir.ui.view">
+        <field name="name">internal.document.order.form</field>
+        <field name="model">ra_legal_department.document</field>
+        <field name="priority" eval="2"/>
+
+        <field name="arch" type="xml">
+            <form string="Новий Наказ">
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1"/>
+                </header>
+                <sheet>
+
+                    <field name="show_document_have_registration" invisible="1"/>
+                    <field name="document_have_registration" readonly="1" widget="boolean_toggle"
+                           attrs="{'invisible': [('show_document_have_registration', '=', False)]}"/>
+
+                    <div name="button_box" class="oe_button_box" style="display: flex; justify-content: flex-end;">
+                        <div>
+                            <button class="oe_stat_button" name="publish_document" type="object"
+                                    attrs="{'invisible': ['|', ('state', 'in', ['registred', 'cancel']), ('document_have_registration', '=', True)]}">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Зареєструвати</strong>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="cancel_document_registration" type="object"
+                                    attrs="{'invisible': [('document_have_registration', '=', False)]}">
+                                <div class="o_stat_info">
+                                    <strong class="ml-2">Скасувати реєстрацію</strong>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Назва документу"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="type_of_document" attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="type_of_internal_document"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="internal_number_of_document"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="date_of_document" attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </group>
+                        <group>
+                            <field name="responsible_user_id" attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                            <field name="document_attachment" widget="many2many_binary"
+                                   attrs="{ 'readonly': [('state', 'not in', ['draft'])]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--    &lt;!&ndash; Форма (form) для работы с приказами &ndash;&gt;-->
+    <!--    <record id="view_order_form_custom" model="ir.ui.view">-->
+    <!--        <field name="name">legal_orderss_form</field>-->
+    <!--        <field name="model">ra_legal_department.document</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="Наказ">-->
+    <!--                <sheet>-->
+    <!--                    &lt;!&ndash; Логотип и шапка документа &ndash;&gt;-->
+    <!--                    <div style="text-align: center;">-->
+    <!--                        <img src="/your_module/static/img/logo.png" style="max-height: 80px;" alt="Логотип компании"/>-->
+    <!--                        <h3>Товариство з обмеженою відповідальністю</h3>-->
+    <!--                        <h3>"Агрофірма «Під сонцем»"</h3>-->
+    <!--                        <p>92715, Луганська обл., Старобільський р-н, с. Марківка, вул. Жовтнева, буд. 3/А</p>-->
+    <!--                        <p>Код ЄДРПОУ 399897137</p>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Номер и дата приказа &ndash;&gt;-->
+    <!--                    <div style="margin-top: 30px; text-align: right;">-->
+    <!--                        <p>Наказ №-->
+    <!--                            <field name="order_number" readonly="1"/>-->
+    <!--                        </p>-->
+    <!--                        <p>від-->
+    <!--                            <field name="order_date" readonly="1"/>-->
+    <!--                        </p>-->
+    <!--                        <p>м. Вінниця</p>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Заголовок приказа &ndash;&gt;-->
+    <!--                    <div style="text-align: center; margin-top: 30px;">-->
+    <!--                        <h4>Про виконання обов’язків</h4>-->
+    <!--                        <p>на посаді директора</p>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Основной текст приказа &ndash;&gt;-->
+    <!--                    <div style="margin-top: 30px;">-->
+    <!--                        <p>-->
+    <!--                            У відповідності до вимог Статуту ТОВ "Агрофірма «Під сонцем»"-->
+    <!--                            та на підставі Протоколу Загальних зборів ТОВ "Агрофірма «Під сонцем»" №-->
+    <!--                            <field name="order_number" readonly="1"/>-->
+    <!--                            від<field name="protocol_date" readonly="1"/>:-->
+    <!--                        </p>-->
+    <!--                        <p style="margin-top: 20px;">-->
+    <!--                            1. Призначити на посаду Директора –-->
+    <!--                            <field name="director_name" string="Прізвище Ім'я По батькові"/>-->
+    <!--                        </p>-->
+    <!--                        <p>-->
+    <!--                            2. До виконання обов'язків директора приступити з-->
+    <!--                            <field name="start_date"/>-->
+    <!--                        </p>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Подпись &ndash;&gt;-->
+    <!--                    <div style="margin-top: 30px; text-align: right;">-->
+    <!--                        <p>Директор</p>-->
+    <!--                        <p>ТОВ "Агрофірма «Під сонцем»"</p>-->
+    <!--                        <p>-->
+    <!--                            <field name="signatory" readonly="1"/>-->
+    <!--                        </p>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Печать &ndash;&gt;-->
+    <!--                    <div style="margin-top: 50px; text-align: center;">-->
+    <!--                        <img src="/your_module/static/img/stamp.png" style="max-height: 100px;" alt="Печать компании"/>-->
+    <!--                    </div>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+    <!--__________________________________________ ПОИСК ________________________________________________________-->
+
+    <!--__________________________________________ Actions ______________________________________________________-->
+    <!-- Накази -->
+    <record id="action_orders_legal_department" model="ir.actions.act_window">
+        <field name="name">Накази</field>
+        <field name="res_model">ra_legal_department.document</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

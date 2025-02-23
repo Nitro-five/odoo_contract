@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+
+        <!--        Консультація-->
+        <record id="action_report_consultation" model="docx.report.config">
+            <field name="name">Консультація[word]</field>
+            <field name="model_id" ref="ra_legal_department.model_ra_legal_department_consultation"/>
+            <field name="field_id" ref="ra_legal_department.field_ra_legal_department_consultation__name"/>
+            <field name="report_docx_template_filename">Консультація[word].docx</field>
+            <field name="report_docx_template" type="base64"
+                   file="ra_legal_department/static/templates/consultation_template.docx"/>
+            <field name="docx_merge_mode">composer</field>
+            <field name="state">published</field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<odoo>
+    <!-- Шаблон звіту -->
+    <template id="report_contract_document">
+        <t t-call="alnas.report_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2>Договір: <t t-esc="o.name"/></h2>
+                    <p>Дата: <t t-esc="o.date"/></p>
+                    <p>Тип: <t t-esc="o.contract_type"/></p>
+                    <p>Контрагент: <t t-esc="o.partner_id.name"/></p>
+                    <p>Сума: <t t-esc="o.amount"/></p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Визначення звіту для друку -->
+    <report
+        id="action_print_contract"
+        model="contract.contract"
+        string="Друк договору"
+        report_type="qweb-pdf"
+        file="contract.report_contract_document"
+        name="contract.report_contract_document"
+        print_report_name="object.name"
+    />
+</odoo>

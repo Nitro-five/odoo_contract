@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+
+        <record id="mail_template_send_document" model="mail.template">
+            <field name="name">Document: Send Document</field>
+            <field name="model_id" ref="model_ra_legal_department_document"/>
+            <field name="subject">{{ object.name or object.name_of_document}}</field>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <!--            <field name="partner_to">{{ object.partner_id.id }}</field>-->
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Доброго дня, надсилаю Вам документ
+                        <br/>
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <!--        todo Сделать обратно в кнопку відправити документ, когда будет репорт -->
+            <field name="report_template" ref="ra_legal_department.action_report_document"/>
+            <field name="report_name">{{ (object.name_of_document or '1')}}</field>
+            <field name="lang">{{ object.company_id.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

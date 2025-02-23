@@ -1,0 +1,128 @@
+<odoo>
+
+
+    <!--__________________________________________ СПИСКИ _______________________________________________________-->
+    <record id="view_perevirky_tree" model="ir.ui.view">
+        <field name="name">ra_legal_department.examination.tree</field>
+        <field name="model">ra_legal_department.examination</field>
+        <field name="arch" type="xml">
+            <tree string="Перевірки">
+                <field name="name"/>
+                <field name="date_planned"/>
+                <field name="date_done"/>
+                <field name="state"/>
+                <field name="responsible_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--__________________________________________ ФОРМИ ________________________________________________________-->
+
+    <record id="view_perevirky_form" model="ir.ui.view">
+        <field name="name">ra_legal_department.examination.form</field>
+        <field name="model">ra_legal_department.examination</field>
+        <field name="arch" type="xml">
+            <form string="Перевірка">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,in_progress,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_in_progress"
+                                type="object"
+                                attrs="{'invisible': [('state', '!=', 'planned')]}">
+                            <div class="o_stat_info">
+                                <strong class="ml-2">
+                                    Розпочати підготовку
+                                </strong>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button" name="action_complete"
+                                type="object"
+                                attrs="{'invisible': [('state', '!=', 'in_progress')]}">
+                            <div class="o_stat_info">
+                                <strong class="ml-2">
+                                    Завершити
+                                </strong>
+                            </div>
+                        </button>
+
+                        <button class="oe_stat_button" name="action_cancel"
+                                type="object">
+                            <div class="o_stat_info">
+                                <strong class="ml-2">
+                                    Скасувати
+                                </strong>
+                            </div>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" placeholder="Назва перевірки"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="date_planned"/>
+                            <field name="date_done"/>
+                            <field name="state_organization_id"/>
+                            <field name="inspection_type"/>
+                            <field name="responsible_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Документи">
+                            <field name="documents_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="document" widget="binary"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--__________________________________________ ПОИСК ________________________________________________________-->
+    <record id="view_perevirky_search" model="ir.ui.view">
+        <field name="name">ra_legal_department.examination.search</field>
+        <field name="model">ra_legal_department.examination</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Назва"/>
+                <field name="date_planned" string="Дата планування" filter_domain="[(date_planned, '>=', self)]"/>
+                <field name="date_done" string="Дата завершення" filter_domain="[(date_done, '>=', self)]"/>
+                <field name="state" string="Статус" filter_domain="[('state', '=', self)]"/>
+                <filter name="filter_planned" string="Планується" domain="[('state', '=', 'planned')]"/>
+                <filter name="filter_in_progress" string="В процесі" domain="[('state', '=', 'in_progress')]"/>
+                <filter name="filter_completed" string="Завершена" domain="[('state', '=', 'completed')]"/>
+                <filter name="filter_cancelled" string="Скасована" domain="[('state', '=', 'cancelled')]"/>
+            </search>
+            <!--            <searchpanel>-->
+
+            <!--                <field name="responsible_id" icon="fa-filter" enable_counters="1" select="multi"-->
+            <!--                       string="Відповідальна особа"/>-->
+            <!--                <field name="state" icon="fa-filter" enable_counters="1" select="multi"-->
+            <!--                       string="Статус"/>-->
+            <!--            </searchpanel>-->
+        </field>
+    </record>
+    <!--__________________________________________ Actions ______________________________________________________-->
+
+    <record id="action_perevirky_user" model="ir.actions.act_window">
+        <field name="name">Мої перевірки</field>
+        <field name="res_model">ra_legal_department.examination</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_perevirky_planned" model="ir.actions.act_window">
+        <field name="name">Заплановані перевірки</field>
+        <field name="res_model">ra_legal_department.examination</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

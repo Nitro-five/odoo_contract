@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Меню -->
+    <menuitem id="menu_contract_root"
+              name="Договор купівлі-продажу"
+              sequence="0"/>
+
+    <menuitem id="menu_contract"
+              name="Договори"
+              parent="menu_contract_root"
+              action="action_contract_form"
+              sequence="0"/>
+
+    <menuitem id="menu_contract_product"
+              name="Продукт"
+              parent="menu_contract_root"
+              action="sale.product_template_action"
+              sequence="0"/>
+
+    <menuitem id="menu_contract_clients"
+              name="Клієнти"
+              parent="menu_contract"
+              action="account.res_partner_action_customer"
+              sequence="0"/>
+</odoo>

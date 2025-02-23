@@ -1,0 +1,79 @@
+<odoo>
+
+
+    <!--__________________________________________ СПИСКИ _______________________________________________________-->
+    <record id="view_financial_assistance_tree" model="ir.ui.view">
+        <field name="name">financial.assistance.contracts.tree</field>
+        <field name="model">financial.assistance.contracts</field>
+        <field name="arch" type="xml">
+            <tree string="Фінансова допомога">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="amount"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--__________________________________________ ФОРМИ ________________________________________________________-->
+    <record id="view_financial_assistance_form" model="ir.ui.view">
+        <field name="name">financial.assistance.contracts.form</field>
+        <field name="model">financial.assistance.contracts</field>
+        <field name="arch" type="xml">
+            <form string="Договір про фінансову допомогу">
+                <sheet>
+                    <group string="Загальні положення" colspan="2">
+                        <field name="name" string="Назва договору"/>
+                        <field name="partner_id" string="Допомогоотримувач"/>
+                        <field name="date_start" string="Дата початку"/>
+                        <field name="date_end" string="Дата повернення"/>
+                        <field name="amount" string="Сума фінансової допомоги"/>
+                        <field name="status" string="Статус договору"/>
+                    </group>
+
+                    <group string="Умови договору" colspan="2">
+                        <label for="terms" string="1. Загальні умови"/>
+                        <div>
+                            <field name="terms" nolabel="1"/>
+                            <p>В порядку та на умовах визначених цим Договором, Допомогодавець надає поворотну фінансову
+                                допомогу на безпроцентній основі, яка підлягає поверненню до зазначеної дати.
+                            </p>
+                        </div>
+                        <label for="amount" string="2. Розмір фінансової допомоги"/>
+                        <div>
+                            <p>Сума фінансової допомоги становить
+                                <b>
+                                    <field name="amount"/>
+                                    грн
+                                </b>
+                                .
+                            </p>
+                        </div>
+                        <label for="date_end" string="3. Строки повернення"/>
+                        <div>
+                            <p>Фінансова допомога повинна бути повернена до
+                                <b>
+                                    <field name="date_end"/>
+                                </b>
+                                . У разі порушення строків, накладається штраф у розмірі<field name="penalty"/>%.
+                            </p>
+                        </div>
+                    </group>
+
+                    <group string="Дії" colspan="2">
+                        <button name="activate_contract" string="Активувати договір" type="object" class="btn-primary"/>
+                        <button name="close_contract" string="Закрити договір" type="object" class="btn-secondary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--__________________________________________ ПОИСК ________________________________________________________-->
+
+    <!--__________________________________________ Actions ______________________________________________________-->
+
+
+</odoo>
